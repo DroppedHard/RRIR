@@ -5,7 +5,6 @@ import math
 
 # picks the next guess based on two previous guesses (and resulting solutions)
 def linear_interpolation (guess1, guess2, solution1, solution2, y_end):
-    print("interp", guess1, guess2, solution1, solution2)
     m = (guess1 - guess2) / (solution1 - solution2)
     return guess2 + m*(y_end - solution2)
 
@@ -36,7 +35,6 @@ def shooting_method (f, x_start, x_end, y_start, y_end, step_size):
         if(len(guesses) <= 2):
             guesses.append(random.randrange(0, 10))
         else:
-            print(y_end, solutions[-1][-1])
             guesses.append(linear_interpolation(guesses[-2], guesses[-1], solutions[-2][-1], solutions[-1][-1], y_end))
 
         solutions.append(solve_ivp_second(f, step_size, x_vals, y_start, guesses[-1]))
@@ -50,13 +48,11 @@ def shooting_method (f, x_start, x_end, y_start, y_end, step_size):
 
 def plot_shots (x_vals, solutions):
     for i, solution in enumerate(solutions):
-        print(solution)
+        labelstr = 'numerical solution' if i == len(solutions)-1 else 'shot #' + str(i)
         plt.plot(
             x_vals, solution, 
-            marker='.', markersize=15, 
-            linestyle='--', label='solution #' + str(i))
-
-        """ plt.plot(x_vals,solutions[-1]) """
+            marker='.', markersize=10, 
+            linestyle='--', label=labelstr)
 
     plt.grid(True)
     plt.legend()
@@ -72,7 +68,7 @@ f4 = lambda x,y,yprime : -9.8
 x_start = 0
 x_end = 1
 y_start = 1
-y_end = math.e**2
+y_end = 2
 
 (x_vals, solutions) = shooting_method(f3, x_start, x_end, y_start, y_end, 0.1)
 plot_shots(x_vals, solutions)

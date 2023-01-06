@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import random
+import math
 
 # picks the next guess based on two previous guesses (and resulting solutions)
 def linear_interpolation (guess1, guess2, solution1, solution2, y_end):
@@ -33,7 +34,7 @@ def shooting_method (f, x_start, x_end, y_start, y_end, step_size):
     while (len(solutions) == 0 or np.abs(y_end - solutions[-1][-1]) > 1e-9):
     
         if(len(guesses) <= 2):
-            guesses.append(random.randrange(x_start, x_end)) # this could probably be just a random int
+            guesses.append(random.randrange(0, 10))
         else:
             print(y_end, solutions[-1][-1])
             guesses.append(linear_interpolation(guesses[-2], guesses[-1], solutions[-2][-1], solutions[-1][-1], y_end))
@@ -69,9 +70,9 @@ f4 = lambda x,y,yprime : -9.8
 
 # boundary conditions y(x_start) = y_start, y(x_end) = y_end
 x_start = 0
-x_end = 5
-y_start = 0
-y_end = 50
+x_end = 1
+y_start = 1
+y_end = math.e**2
 
-(x_vals, solutions) = shooting_method(f4, x_start, x_end, y_start, y_end, 0.1)
+(x_vals, solutions) = shooting_method(f3, x_start, x_end, y_start, y_end, 0.1)
 plot_shots(x_vals, solutions)

@@ -25,12 +25,11 @@ def solve_ivp_second (f, step_size, x_vals, y_start, yprimestart):
 
 def shooting_method (f, x_start, x_end, y_start, y_end, step_size):
     guesses = []
-    # solutions is a list solution sequences for each guess
+    # solutions is a of list solution sequences for each guess
     solutions = []
 
     x_vals = np.arange(x_start, x_end, step_size)
 
-    # since our equations are linear, we can assume we'll reach the target using linear interpolation
     while (len(solutions) == 0 or np.abs(y_end - solutions[-1][-1]) > 1e-9):
     
         if(len(guesses) <= 2):

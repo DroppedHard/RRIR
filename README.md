@@ -30,7 +30,7 @@ Rozmiar siatki automatycznie dopasowuje się do wartości otrzymanych funkcji.
 
 Metoda polega na użyciu losowo wybranej wartości y'(x0) do wyliczenia rozwiązania. Otrzymany wynik porównujemy ze znaną drugą wartością brzegową.\
 Powtarzamy te 2 kroki do momentu znalezienia dostatecznie dokładnego rozwiązania.\
-Po pierwszych dwóch "strzałach", czyli zgadniętych wartościach y'(x0) zwiększamy dokładność kolejnych strzałów korzystając z liniowej interpolacji.
+Po pierwszych dwóch "strzałach", czyli zgadniętych wartościach y'(x0) zwiększamy dokładność kolejnych strzałów, korzystając z liniowej interpolacji.
 
 ## Implementacja
 

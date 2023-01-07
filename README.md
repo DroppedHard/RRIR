@@ -15,6 +15,12 @@ Projekt polega na zaimplementowaniu metody numerycznej strzałów, która na pod
 
 ## Wymagania sprzętowe
 
+Procesor: Intel Core i7-5820K
+Karta graficzna: Nvidia GeForce GTX 1080
+Pamięć RAM: 16GB
+Miejsce na dysku: 1GB
+System operacyjny: Windows 10
+
 ## Korzystanie z programu
 
 Po uruchomieniu programu powinno wyświelić się okno, gdzie możemy wyróżnić następujące sekcje:

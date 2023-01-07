@@ -75,6 +75,7 @@ def plot_redraw(data, plot, exact_solution):
     plot.plot(
             x_vals, exact_solution,
             marker='None',
+            linewidth=3,
             linestyle='-', label="exact plot")
     plot.grid(True)
     plot.tick_params(colors='white', which='both')

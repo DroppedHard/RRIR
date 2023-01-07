@@ -56,7 +56,7 @@ def plot_shots (data, window):
         plots.plot(
             x_vals, solution, 
             marker='.', markersize=5, 
-            linestyle='--', label='solution #' + str(i))
+            linestyle='--', label=labelstr)
     plots.grid(True)
     plots.tick_params(colors='white', which='both') 
     

@@ -60,15 +60,15 @@ def plot_create(window):
 def plot_redraw(data, plot):
     x_vals, solutions = data
     plot.clear()
-
     for i, solution in enumerate(solutions):
-        labelstr = 'numerical solution' if i == len(solutions)-1 else 'shot #' + str(i)
+        label = "shot #" + str(i + 1)
         plot.plot(
             x_vals, solution, 
             marker='.', markersize=5, 
-            linestyle='--', label=labelstr)
+            linestyle='--', label=label)
     plot.grid(True)
     plot.tick_params(colors='white', which='both')
+    plot.legend(loc='best')
     plt.draw() 
 
 

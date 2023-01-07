@@ -47,7 +47,7 @@ def shooting_method (f, x_start, x_end, y_start, y_end, step_size):
 
     return (x_vals, solutions)
 
-# y'' = f(x,y,y')
+""" # y'' = f(x,y,y')
 f1 = lambda x,y,yprime : x*yprime + 2*y + 2*x
 f2 = lambda x,y,yprime : -x*yprime + x*y + 2*x
 f3 = lambda x,y,yprime : 5*yprime - 6*y
@@ -58,6 +58,12 @@ x_start = 0
 x_end = 1
 y_start = 1
 y_end = 2
+ """
+# r = (lambda x,y,yprime : f(x,y,y'), x_start, x_end, y_start, y_end)
+r1 = (lambda x,y,yprime : 5*yprime - 6*y, 0, 1, 1, math.e**2)
+r2 = (lambda x,y,yprime : 2, 0, 10, 0, 0)
+r3 = (lambda x,y,yprime : -8*math.sin(x)*math.cos(x), 0, math.pi, 0, 0)
+r4 = (lambda x,y,yprime : math.e**x - 6*x**2*math.sin(x) + x**3*math.cos(x) - 6*x*math.cos(x), 0, math.pi, 0, 0)
 
-data = shooting_method(f4, x_start, x_end, y_start, y_end, 0.1)
+data = shooting_method(*r4, 0.1)
 gui.main_screen(data)

@@ -6,6 +6,9 @@ Autorzy:
   <li>Marcin Żurawel</li>
   <li>Szymon Wójcik</li>
 </ul>
+
+Aby skorzystać ze spisu treści, proszę nacisnąć menu w lewym górnym rogu tego okna.
+
 # Wstęp
 
 # Opis metody

@@ -41,7 +41,7 @@ def shooting_method(f, x_start, x_end, y_start, y_end, step_size):
 
         solutions.append(solve_ivp_second(f, step_size, x_vals, y_start, guesses[-1]))
 
-        if len(solutions) >= 1e4:
+        if len(solutions) >= 100:
             break
         if len(solutions) > 2 and solutions[-2][-1] == solutions[-1][-1]:
             break
@@ -58,17 +58,3 @@ def give_equation(current_equation, step):
             for i in data[0]:
                 exact_solution.append(solution_eq(i))
             return data, exact_solution
-
-
-""" # y'' = f(x,y,y')
-f1 = lambda x,y,yprime : x*yprime + 2*y + 2*x
-f2 = lambda x,y,yprime : -x*yprime + x*y + 2*x
-f3 = lambda x,y,yprime : 5*yprime - 6*y
-f4 = lambda x,y,yprime : 5*yprime - 6*y
-
-# boundary conditions y(x_start) = y_start, y(x_end) = y_end
-x_start = 0
-x_end = 1
-y_start = 1
-y_end = 2
- """

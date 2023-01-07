@@ -10,35 +10,42 @@ import equations as eq
 def main_screen():
     window = tk.Tk()
     window.title('Shooting method')
-    window.tk.call("source", "azure.tcl")
-    window.tk.call("set_theme", "dark")
     window.rowconfigure(0, weight=1)
     window.rowconfigure(1, weight=3)
     window.rowconfigure(2, weight=3)
 
     slider_label = tk.Label(window, text='Step size')
-    slider_label.grid(column=0, row=0)
     slider = tk.Scale(window, from_=0.1, to=1, tickinterval=0.2, length=160, orient='horizontal', resolution=0.1)
     slider.set(0.1)
-    slider.grid(column=0, row=1)
 
     options = map(lambda equation: equation[1], eq.get_equations())
 
     clicked = tk.StringVar()
     clicked.set(eq.get_equations()[0][1])
     equations_label = tk.Label(window, text='Equations')
-    equations_label.grid(column=1, row=0)
     equations = tk.OptionMenu(window, clicked, *options)
     equations.configure(width=45)
-    equations.grid(column=1, row=1)
 
     figure_canvas, plots = plot_create(window)
-    figure_canvas.grid(column=0, row=2, columnspan=3)
 
     button = tk.Button(window, text="Plot", command=lambda: button_click(clicked, slider, plots))
-    button.grid(column=2, row=1)
 
     window.protocol("WM_DELETE_WINDOW", lambda: exit())
+
+    window.configure(bg='#333333')
+    slider_label.configure(bg='#333333', fg='white')
+    slider.configure(bg='#333333', fg='white')
+    equations_label.configure(bg='#333333', fg='white')
+    equations.configure(bg='#333333', fg='white')
+    button.configure(bg='#333333', fg='white')
+
+    slider_label.grid(column=0, row=0)
+    slider.grid(column=0, row=1)
+    equations_label.grid(column=1, row=0)
+    equations.grid(column=1, row=1)
+    button.grid(column=2, row=1)
+    figure_canvas.grid(column=0, row=2, columnspan=3)
+
     tk.mainloop()
 
 

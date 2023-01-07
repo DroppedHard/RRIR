@@ -13,7 +13,9 @@ Aby skorzystać ze spisu treści, proszę nacisnąć menu w lewym górnym rogu t
 
 Projekt polega na zaimplementowaniu metody numerycznej strzałów, która na podstawie różniczki drugiego rzędu i warunków brzegowych wylicza funkcję zbliżoną do funkcji wyliczonej algebraicznie. Program został napisany w Pythonie, graficzny interfejs został stworzony przy pomocy biblioteki `matplotlib.pyplot`.
 
-## Wymagania sprzętowe
+## Wymagania systemowe
+
+Program był testowany w systemie Windows 10, i działał poprawnie. Zalecamy więc korzystanie z tego systemu przy uruchamianiu programu.
 
 ## Korzystanie z programu
 

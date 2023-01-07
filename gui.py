@@ -18,7 +18,7 @@ def main_screen():
 
     slider_label = tk.Label(window, text='Step size')
     slider_label.grid(column=0, row=0)
-    slider = tk.Scale(window, from_=0.1, to=1, tickinterval=0.2, length=200, orient='horizontal', resolution=0.1)
+    slider = tk.Scale(window, from_=0.1, to=1, tickinterval=0.2, length=160, orient='horizontal', resolution=0.1)
     slider.set(0.1)
     slider.grid(column=0, row=1)
 
@@ -29,7 +29,7 @@ def main_screen():
     equations_label = tk.Label(window, text='Equations')
     equations_label.grid(column=1, row=0)
     equations = tk.OptionMenu(window, clicked, *options)
-    equations.configure(width=32)
+    equations.configure(width=45)
     equations.grid(column=1, row=1)
 
     figure_canvas, plots = plot_create(window)

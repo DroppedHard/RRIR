@@ -30,7 +30,7 @@ def shooting_method (f, x_start, x_end, y_start, y_end, step_size):
 
     x_vals = np.arange(x_start, x_end, step_size)
 
-    while (len(solutions) == 0 or np.abs(y_end - solutions[-1][-1]) > 1e-9):
+    while (len(solutions) == 0 or np.abs(y_end - solutions[-1][-1]) > 1e-3):
     
         if(len(guesses) <= 2):
             guesses.append(random.randrange(0, 10))
@@ -41,7 +41,7 @@ def shooting_method (f, x_start, x_end, y_start, y_end, step_size):
 
         if len(solutions) >= 1e4:
             break
-        if len(solutions) >= 2 and solutions[-2][-1] == solutions[-1][-1]:
+        if len(solutions) > 2 and solutions[-2][-1] == solutions[-1][-1]:
             break
 
     return (x_vals, solutions)

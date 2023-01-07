@@ -34,7 +34,7 @@ Po pierwszych dwóch "strzałach", czyli zgadniętych wartościach y'(x0) zwięk
 
 ## Implementacja
 
-Główny algorytm metody strzałów znajduje się w funkcji shooting_method. Wybiera pierwsze 2 strzały losowo - pierwszy ze zbioru {1..5}, drugi ze zbioru {5..10}.\
+Główny algorytm metody strzałów znajduje się w funkcji shooting_method. Wybiera pierwsze 2 strzały losowo - pierwszy ze zbioru {1..5}, drugi ze zbioru {5..10}.
 Do wybrania kolejnych używa funkcji linear_interpolation.\
 Otrzymany po zgadnięciu brakującego założenia problem Cauchy'ego jest rozwiązywany funkcją solve_ivp_second. Implementuje ona metodę Eulera dla równań drugiego rzędu.\
 Kolejne strzały są wykonywane do momentu uzyskania dokładności 10^-3 (różnica między otrzymaną wartością brzegową a podaną) lub gdy liniowa interpolacja przestaje dawać bardziej precyzyjne wartości (każdy kolejny strzał jest taki sam).

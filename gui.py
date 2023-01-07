@@ -38,6 +38,7 @@ def main_screen():
     button = tk.Button(window, text="Plot", command=lambda: button_click(clicked, slider, plots))
     button.grid(column=2, row=1)
 
+    window.protocol("WM_DELETE_WINDOW", lambda: exit())
     tk.mainloop()
 
 def plot_create(window):
@@ -52,7 +53,6 @@ def plot_create(window):
     plots.tick_params(colors='white', which='both') 
     
     return figure_canvas.get_tk_widget(), plots
-
 
 def plot_redraw(data, plot):
     x_vals, solutions = data
@@ -72,7 +72,6 @@ def plot_redraw(data, plot):
     plot.tick_params(colors='white', which='both')
     plot.legend(loc='best')
     plt.draw() 
-
 
 def button_click(clicked, slider, plot):
     equation = clicked.get()

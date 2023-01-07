@@ -61,7 +61,7 @@ def plot_redraw(data, plot):
     x_vals, solutions = data
     plot.clear()
     for i, solution in enumerate(solutions):
-        label = "plot #" + str(i + 1)
+        label = "shot #" + str(i + 1)
         plot.plot(
             x_vals, solution, 
             marker='.', markersize=5, 

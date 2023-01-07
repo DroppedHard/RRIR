@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import random
+import gui
 import math
 
 # picks the next guess based on two previous guesses (and resulting solutions)
@@ -46,18 +47,6 @@ def shooting_method (f, x_start, x_end, y_start, y_end, step_size):
 
     return (x_vals, solutions)
 
-def plot_shots (x_vals, solutions):
-    for i, solution in enumerate(solutions):
-        labelstr = 'numerical solution' if i == len(solutions)-1 else 'shot #' + str(i)
-        plt.plot(
-            x_vals, solution, 
-            marker='.', markersize=10, 
-            linestyle='--', label=labelstr)
-
-    plt.grid(True)
-    plt.legend()
-    plt.show()
-
 # y'' = f(x,y,y')
 f1 = lambda x,y,yprime : x*yprime + 2*y + 2*x
 f2 = lambda x,y,yprime : -x*yprime + x*y + 2*x
@@ -70,5 +59,5 @@ x_end = 1
 y_start = 1
 y_end = 2
 
-(x_vals, solutions) = shooting_method(f3, x_start, x_end, y_start, y_end, 0.1)
-plot_shots(x_vals, solutions)
+data = shooting_method(f4, x_start, x_end, y_start, y_end, 0.1)
+gui.main_screen(data)

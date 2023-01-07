@@ -1,16 +1,17 @@
-import math
 import random
 import numpy as np
 import equations as eq
 
+
 # picks the next guess based on two previous guesses (and resulting solutions)
-def linear_interpolation (guess1, guess2, solution1, solution2, y_end):
+def linear_interpolation(guess1, guess2, solution1, solution2, y_end):
     m = (guess1 - guess2) / (solution1 - solution2)
     return guess2 + m*(y_end - solution2)
 
+
 # solves 2nd order ode using forward Euler method
 # y'' = f
-def solve_ivp_second (f, step_size, x_vals, y_start, yprimestart):
+def solve_ivp_second(f, step_size, x_vals, y_start, yprimestart):
     y_vals = np.zeros_like(x_vals)
     y_vals[0] = y_start
     yprime_vals = np.zeros_like(x_vals)
@@ -23,17 +24,18 @@ def solve_ivp_second (f, step_size, x_vals, y_start, yprimestart):
     
     return y_vals
 
-def shooting_method (f, x_start, x_end, y_start, y_end, step_size):
+
+def shooting_method(f, x_start, x_end, y_start, y_end, step_size):
     guesses = []
     # solutions is a of list solution sequences for each guess
     solutions = []
 
     x_vals = np.arange(x_start, x_end, step_size)
 
-    while (len(solutions) == 0 or np.abs(y_end - solutions[-1][-1]) > 1e-9):
+    while len(solutions) == 0 or np.abs(y_end - solutions[-1][-1]) > 1e-3:
     
-        if(len(guesses) <= 2):
-            guesses.append(random.randrange(0, 10))
+        if len(guesses) <= 2:
+            guesses.append(random.randrange(0 + 5*len(guesses), 5 + 5*len(guesses)))
         else:
             guesses.append(linear_interpolation(guesses[-2], guesses[-1], solutions[-2][-1], solutions[-1][-1], y_end))
 
@@ -41,31 +43,22 @@ def shooting_method (f, x_start, x_end, y_start, y_end, step_size):
 
         if len(solutions) >= 1e4:
             break
-        if len(solutions) >= 2 and solutions[-2][-1] == solutions[-1][-1]:
+        if len(solutions) > 2 and solutions[-2][-1] == solutions[-1][-1]:
             break
 
-    return (x_vals, solutions)
+    return x_vals, solutions
+
 
 def give_equation(current_equation, step):
-    """ # r = (lambda x,y,yprime : f(x,y,y'), x_start, x_end, y_start, y_end)
-    match current_equation:
-        case "y\'\'=5y\'-6y":
-            r = (lambda x,y,yprime : 5*yprime - 6*y, 0, 1, 1, math.e**2)
-        case "y\'\'=2":
-            r = (lambda x,y,yprime : 2, 0, 10, 0, 0)
-        case "y\'\'=-8sin(x)cos(x)":
-            r = (lambda x,y,yprime : -8*math.sin(x)*math.cos(x), 0, math.pi, 0, 0)
-        case "y\'\'=e^x-6x^2sin(x)+x^3cos(x)-6xcos(x)":
-            r = (lambda x,y,yprime : math.e**x - 6*x**2*math.sin(x) + x**3*math.cos(x) - 6*x*math.cos(x), 0, math.pi, 0, 0)
-     """
     for equation in eq.get_equations():
-        if(equation[1] == current_equation):
+        if equation[1] == current_equation:
             solution_eq = equation[2]
             data = shooting_method(*equation[0], step)
             exact_solution = []
             for i in data[0]:
                 exact_solution.append(solution_eq(i))
             return data, exact_solution
+
 
 """ # y'' = f(x,y,y')
 f1 = lambda x,y,yprime : x*yprime + 2*y + 2*x

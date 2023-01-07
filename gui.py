@@ -30,8 +30,6 @@ def main_screen():
 
     button = tk.Button(window, text="Plot", command=lambda: button_click(clicked, slider, plots))
 
-    window.protocol("WM_DELETE_WINDOW", lambda: exit())
-
     window.configure(bg='#333333')
     slider_label.configure(bg='#333333', fg='white')
     slider.configure(bg='#333333', fg='white')

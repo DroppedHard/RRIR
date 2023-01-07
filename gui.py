@@ -1,77 +1,80 @@
 import tkinter as tk
-from tkinter import ttk
+import method
 import matplotlib.pyplot as plt
-from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import (
     FigureCanvasTkAgg
 )
 
-def main_screen(data):
+def main_screen():
     window = tk.Tk()
+    window.title('Shooting method')
     window.tk.call("source", "azure.tcl")
     window.tk.call("set_theme", "dark")
     window.rowconfigure(0, weight=1)
     window.rowconfigure(1, weight=3)
     window.rowconfigure(2, weight=3)
 
-    slider_label = tk.Label(window, text='Slider')
+    slider_label = tk.Label(window, text='Step size')
     slider_label.grid(column=0, row=0)
-    slider = tk.Scale(window, from_=0, to=50, tickinterval=10, length=200, orient='horizontal')
+    slider = tk.Scale(window, from_=0.1, to=1, tickinterval=0.2, length=200, orient='horizontal', resolution=0.1)
+    slider.set(0.1)
     slider.grid(column=0, row=1)
 
     options = [
-        "Równanie 1",
-        "Równanie 2",
-        "Równanie 3",
-        "Równanie 4"
+        "y\'\'=5y\'-6y",
+        "y\'\'=2",
+        "y\'\'=-8sin(x)cos(x)",
+        "y\'\'=e^x-6x^2sin(x)+x^3cos(x)-6xcos(x)"
     ]
 
     clicked = tk.StringVar()
-    clicked.set("Równanie 1")
+    clicked.set("y\'\'=5y\'-6y")
     equations_label = tk.Label(window, text='Equations')
     equations_label.grid(column=1, row=0)
     equations = tk.OptionMenu(window, clicked, *options)
+    equations.configure(width=32)
     equations.grid(column=1, row=1)
 
-    button = tk.Button(window, text="Plot", command=lambda: button_click(clicked, slider))
+    figure_canvas, plots = plot_create(window)
+    figure_canvas.grid(column=0, row=2, columnspan=3)
+
+    button = tk.Button(window, text="Plot", command=lambda: button_click(clicked, slider, plots))
     button.grid(column=2, row=1)
-
-    plot = plot_shots(data, window)
-    plot.grid(column=0, row=2, columnspan=3)
-
 
     tk.mainloop()
 
-def plot_shots (data, window):
-    x_vals, solutions = data
+def plot_create(window):
     plt.rcParams['toolbar'] = 'None'
     figure = plt.figure(facecolor='#333333')
     
     figure_canvas = FigureCanvasTkAgg(figure, window)
     figure_canvas.draw()
-
     plots = figure.add_subplot()
-    for i, solution in enumerate(solutions):
-        labelstr = 'numerical solution' if i == len(solutions)-1 else 'shot #' + str(i)
-        plots.plot(
-            x_vals, solution, 
-            marker='.', markersize=5, 
-            linestyle='--', label=labelstr)
+
     plots.grid(True)
     plots.tick_params(colors='white', which='both') 
     
-    return figure_canvas.get_tk_widget()
-    
+    return figure_canvas.get_tk_widget(), plots
 
-def button_click(clicked, slider):
+
+def plot_redraw(data, plot):
+    x_vals, solutions = data
+    plot.clear()
+
+    for i, solution in enumerate(solutions):
+        labelstr = 'numerical solution' if i == len(solutions)-1 else 'shot #' + str(i)
+        plot.plot(
+            x_vals, solution, 
+            marker='.', markersize=5, 
+            linestyle='--', label=labelstr)
+    plot.grid(True)
+    plot.tick_params(colors='white', which='both')
+    plt.draw() 
+
+
+def button_click(clicked, slider, plot):
     equation = clicked.get()
-    match equation:
-        case "Równanie 1":
-            print("R1")
-        case "Równanie 2":
-            print("R2")
-        case "Równanie 3":
-            print("R3")
-        case "Równanie 4":
-            print("R4")
-    slider_value = slider.get()
+    step = slider.get()
+    data = method.give_equation(equation, step)
+    plot_redraw(data, plot)
+    

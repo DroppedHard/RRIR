@@ -41,6 +41,7 @@ def main_screen():
     window.protocol("WM_DELETE_WINDOW", lambda: exit())
     tk.mainloop()
 
+
 def plot_create(window):
     plt.rcParams['toolbar'] = 'None'
     figure = plt.figure(facecolor='#333333')
@@ -53,6 +54,7 @@ def plot_create(window):
     plots.tick_params(colors='white', which='both') 
     
     return figure_canvas.get_tk_widget(), plots
+
 
 def plot_redraw(data, plot, exact_solution):
     x_vals, solutions = data
@@ -71,6 +73,7 @@ def plot_redraw(data, plot, exact_solution):
     plot.tick_params(colors='white', which='both')
     plot.legend(loc='best')
     plt.draw() 
+
 
 def button_click(clicked, slider, plot):
     equation = clicked.get()

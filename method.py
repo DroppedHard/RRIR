@@ -1,6 +1,7 @@
 import math
 import random
 import numpy as np
+import equations as eq
 
 # picks the next guess based on two previous guesses (and resulting solutions)
 def linear_interpolation (guess1, guess2, solution1, solution2, y_end):
@@ -45,9 +46,9 @@ def shooting_method (f, x_start, x_end, y_start, y_end, step_size):
 
     return (x_vals, solutions)
 
-def give_equation(equation, step):
-    # r = (lambda x,y,yprime : f(x,y,y'), x_start, x_end, y_start, y_end)
-    match equation:
+def give_equation(current_equation, step):
+    """ # r = (lambda x,y,yprime : f(x,y,y'), x_start, x_end, y_start, y_end)
+    match current_equation:
         case "y\'\'=5y\'-6y":
             r = (lambda x,y,yprime : 5*yprime - 6*y, 0, 1, 1, math.e**2)
         case "y\'\'=2":
@@ -56,8 +57,12 @@ def give_equation(equation, step):
             r = (lambda x,y,yprime : -8*math.sin(x)*math.cos(x), 0, math.pi, 0, 0)
         case "y\'\'=e^x-6x^2sin(x)+x^3cos(x)-6xcos(x)":
             r = (lambda x,y,yprime : math.e**x - 6*x**2*math.sin(x) + x**3*math.cos(x) - 6*x*math.cos(x), 0, math.pi, 0, 0)
-    data = shooting_method(*r, step)
-    return data
+     """
+    for equation in eq.get_equations():
+        print('test')
+        if(equation[1] == current_equation):
+            data = shooting_method(*equation[0], step)
+            return data
 
 """ # y'' = f(x,y,y')
 f1 = lambda x,y,yprime : x*yprime + 2*y + 2*x

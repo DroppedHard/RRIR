@@ -4,6 +4,8 @@ import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import (
     FigureCanvasTkAgg
 )
+import equations as eq
+
 
 def main_screen():
     window = tk.Tk()
@@ -20,15 +22,10 @@ def main_screen():
     slider.set(0.1)
     slider.grid(column=0, row=1)
 
-    options = [
-        "y\'\'=5y\'-6y",
-        "y\'\'=2",
-        "y\'\'=-8sin(x)cos(x)",
-        "y\'\'=e^x-6x^2sin(x)+x^3cos(x)-6xcos(x)"
-    ]
+    options = map(lambda equation: equation[1], eq.get_equations())
 
     clicked = tk.StringVar()
-    clicked.set("y\'\'=5y\'-6y")
+    clicked.set(eq.get_equations()[0][1])
     equations_label = tk.Label(window, text='Equations')
     equations_label.grid(column=1, row=0)
     equations = tk.OptionMenu(window, clicked, *options)
@@ -67,7 +64,8 @@ def plot_redraw(data, plot):
             marker='.', markersize=5, 
             linestyle='--', label=label)
     plot.plot(
-            x_vals, solution, 
+            x_vals, solution,
+            marker='None',
             linestyle='-', label="exact plot")
     
     plot.grid(True)

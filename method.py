@@ -59,10 +59,13 @@ def give_equation(current_equation, step):
             r = (lambda x,y,yprime : math.e**x - 6*x**2*math.sin(x) + x**3*math.cos(x) - 6*x*math.cos(x), 0, math.pi, 0, 0)
      """
     for equation in eq.get_equations():
-        print('test')
         if(equation[1] == current_equation):
+            solution_eq = equation[2]
             data = shooting_method(*equation[0], step)
-            return data
+            exact_solution = []
+            for i in data[0]:
+                exact_solution.append(solution_eq(i))
+            return data, exact_solution
 
 """ # y'' = f(x,y,y')
 f1 = lambda x,y,yprime : x*yprime + 2*y + 2*x

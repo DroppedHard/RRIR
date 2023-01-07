@@ -54,7 +54,7 @@ def plot_create(window):
     
     return figure_canvas.get_tk_widget(), plots
 
-def plot_redraw(data, plot):
+def plot_redraw(data, plot, exact_solution):
     x_vals, solutions = data
     plot.clear()
     for i, solution in enumerate(solutions):
@@ -64,10 +64,9 @@ def plot_redraw(data, plot):
             marker='.', markersize=5, 
             linestyle='--', label=label)
     plot.plot(
-            x_vals, solution,
+            x_vals, exact_solution,
             marker='None',
             linestyle='-', label="exact plot")
-    
     plot.grid(True)
     plot.tick_params(colors='white', which='both')
     plot.legend(loc='best')
@@ -76,6 +75,6 @@ def plot_redraw(data, plot):
 def button_click(clicked, slider, plot):
     equation = clicked.get()
     step = slider.get()
-    data = method.give_equation(equation, step)
-    plot_redraw(data, plot)
+    data, exact_solution = method.give_equation(equation, step)
+    plot_redraw(data, plot, exact_solution)
     
